@@ -512,7 +512,7 @@ body {
     position: relative;
 }
 
-.cart-count {
+.cart-number {
     background-color: var(--color-header-border);
     border-radius: 50%;
     color: var(--color-text-main);
@@ -644,6 +644,27 @@ body {
     object-fit: cover;
 }
 
+
+/* Clear cart button style */
+#clear-cart-btn {
+    background-color: #ff3300;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+.plus-btn,
+.minus-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 1024px) {
     .hamburger {

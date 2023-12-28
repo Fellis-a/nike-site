@@ -43,8 +43,8 @@
                 <a href="#part1" class="header_menu-item" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     data-bs-title="Категория: товары">Новинки</a>
                 <a href="#part2" class="header_menu-item">Мужчины</a>
-                <a href="#" class="header_menu-item">Женщины</a>
-                <a href="#" class="header_menu-item">Дети</a>
+                <a href="#part3" class="header_menu-item">Женщины</a>
+                <a href="#part4" class="header_menu-item">Дети</a>
             </nav>
 
 
@@ -61,7 +61,7 @@
                 <div class="cart">
                     <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
                         aria-controls="offcanvasScrolling"><img src="/img/cart.svg" alt="корзина"></a>
-                    <div class="cart-count">0</div>
+                    <div class="cart-counter cart-number">0</div>
                 </div>
             </div>
 
@@ -81,9 +81,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul id="cart-items"></ul>
-                <button id="clear-cart-btn">очистить корзину</button>
-                <p>Пока ваша корзина пуста.</p>
+                <div id="cart">
+                    <h3>Корзина</h3>
+                    <p>Товаров в корзине: <span class="cart-counter">0</span></p>
+                    <ul id="cart-items"></ul>
+                    <p>Общая стоимость: <span id="cart-total">0</span> руб.</p>
+                    <button id="clear-cart-btn">Очистить корзину</button>
+                </div>
             </div>
         </div>
     </header>
@@ -124,8 +128,13 @@
                             <div class="product_name">Nike Air Force 1 '07</div>
                             <div class="product_price">15 000 &#8381;</div>
                         </div>
+                        <div class="quantity-container">
+                            <button class="quantity-btn minus-btn">-</button>
+                            <input type="number" min="1" value="1" class="quantity-input">
+                            <button class="quantity-btn plus-btn">+</button>
+                        </div>
                         <button href="" class="button add-to-cart">В корзину</button>
-                        <button class="remove-from-cart-btn button"></button>
+                        <button class="remove-from-cart-btn" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
 
@@ -206,6 +215,44 @@
             </div>
         </section>
 
+
+        <section class="products" id="part3">
+
+            <h2 class="products_h2">Женщины</h2>
+
+            <div class="products_items">
+                <div class="product">
+                    <img src="/img/shoes1.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="button add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="products" id="part4">
+
+            <h2 class="products_h2">Дети</h2>
+
+            <div class="products_items">
+                <div class="product">
+                    <img src="/img/shoes1.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="button add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
         <!-- <section class="products" id="part2">
@@ -382,14 +429,6 @@
 
     <script src="/js/simple-lightbox.js"></script>
 
-    <script>
-
-    </script>
-    <script>
-
-
-
-    </script>
 
     <script src="/js/star-rating.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

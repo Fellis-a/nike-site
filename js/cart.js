@@ -1,70 +1,95 @@
-
-// JavaScript-код для управления корзиной товаров
-
-// Получаем все кнопки "Добавить в корзину"
-let addToCartButtons = document.getElementsByClassName('add-to-cart');
-// Получаем все кнопки "Удалить из корзины"
-let removeFromCartButtons = document.getElementsByClassName('remove-from-cart-btn');
-// Инициализируем счетчик корзины
-let cartCounter = 0;
-
+var addToCartButtons = document.getElementsByClassName('add-to-cart');
+var removeFromCartButtons = document.getElementsByClassName('remove-from-cart-btn');
+var plusButtons = document.getElementsByClassName('plus-btn');
+var minusButtons = document.getElementsByClassName('minus-btn');
+var cartCounter = 0;
 var cartTotal = 0;
 
-// Добавляем обработчик события при нажатии на кнопку "Добавить в корзину"
-for (let i = 0; i < addToCartButtons.length; i++) {
+for (var i = 0; i < addToCartButtons.length; i++) {
     addToCartButtons[i].addEventListener('click', function () {
-        // Получаем родительский элемент (товар)
-        let product = this.parentNode;
-        // Получаем название товара
-        let productName = product.getElementsByClassName('product_name')[0].textContent;
+        var product = this.parentNode;
+        var productName = product.getElementsByClassName('product_name')[0].textContent;
         var quantityInput = product.getElementsByClassName('quantity-input')[0];
         var quantity = parseInt(quantityInput.value, 10);
         var priceElement = product.getElementsByClassName('product_price')[0];
         var price = parseFloat(priceElement.textContent);
 
-        for (var j = 0; j < quantity; j++) {
-            addToCart(productName, price);
-        }
+
+        addToCart(productName, quantity, price);
+
+        updateCartCounter();
+        updateCartTotal();
+    });
+}
+
+for (var i = 0; i < removeFromCartButtons.length; i++) {
+    removeFromCartButtons[i].addEventListener('click', function () {
+        var product = this.parentNode;
+        var productName = product.getElementsByTagName('h3')[0].textContent;
+        var quantityInput = product.getElementsByClassName('quantity-input')[0];
+        var quantity = parseInt(quantityInput.value, 10);
+        var priceElement = product.getElementsByClassName('product-price')[0];
+        var price = parseFloat(priceElement.textContent);
+
+        removeFromCart(productName, quantity, price);
+
         updateCartCounter();
         updateCartTotal();
 
-        // Скрываем кнопку "Добавить в корзину" и отображаем кнопку "Удалить из корзины"
-        this.style.display = 'none';
-        product.getElementsByClassName('remove-from-cart-btn')[0].style.display = 'inline-block';
-    });
-}
-
-// Добавляем обработчик события при нажатии на кнопку "Удалить из корзины"
-for (let i = 0; i < removeFromCartButtons.length; i++) {
-    removeFromCartButtons[i].addEventListener('click', function () {
-        // Получаем родительский элемент (товар)
-        let product = this.parentNode;
-        // Получаем название товара
-        let productName = product.getElementsByClassName('product_name')[0].textContent;
-        var quantityInput = product.getElementsByClassName('quantity-input')[0];
-        var quantity = parseInt(quantityInput.value, 10);
-
-        removeFromCart(productName, quantity);
-        // Обновляем счетчик корзины
-        updateCartCounter();
-
-        // Скрываем кнопку "Удалить из корзины" и отображаем кнопку "Добавить в корзину"
-        this.style.display = 'none';
-        product.getElementsByClassName('add-to-cart')[0].style.display = 'inline-block';
+        // Remove the item from the cart visually
+        this.parentNode.parentNode.removeChild(this.parentNode);
     });
 }
 
 
+for (var i = 0; i < plusButtons.length; i++) {
+    plusButtons[i].addEventListener('click', function () {
+        var quantityInput = this.parentNode.querySelector('.quantity-input');
+        quantityInput.value = parseInt(quantityInput.value, 10) + 1;
+    });
+}
 
-function addToCart(productName, price) {
+for (var i = 0; i < minusButtons.length; i++) {
+    minusButtons[i].addEventListener('click', function () {
+        var quantityInput = this.parentNode.querySelector('.quantity-input');
+        var currentValue = parseInt(quantityInput.value, 10);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+}
+
+function addToCart(productName, quantity, price) {
     var cartItems = document.getElementById('cart-items');
     var listItem = document.createElement('li');
-    listItem.textContent = productName;
+    //     listItem.textContent = productName + ' x1'; // Indicate the quantity
+    //     cartItems.appendChild(listItem);
+
+    //     cartTotal += price;
+    // }
+
+    // Create a container for the item in the cart with a delete button
+    var itemContainer = document.createElement('div');
+    itemContainer.innerHTML = `${productName} x ${quantity} - ${price * quantity} руб. <button class="delete-from-cart-btn">Удалить</button>`;
+    listItem.appendChild(itemContainer);
+
+    // Add the item to the cart
     cartItems.appendChild(listItem);
 
-    cartTotal += price;
+    // Add an event listener for the delete button
+    var deleteButton = listItem.querySelector('.delete-from-cart-btn');
+    deleteButton.addEventListener('click', function () {
+        removeFromCart(productName, quantity, price);
+        updateCartCounter();
+        updateCartTotal();
+        cartItems.removeChild(listItem);
+    });
+
+    // Update the total price
+    cartTotal += price * quantity;
 }
-// Функция для добавления товара в корзину
+
+
 function removeFromCart(productName, quantity, price) {
     var cartItems = document.getElementById('cart-items');
     var items = cartItems.getElementsByTagName('li');
@@ -84,62 +109,31 @@ function removeFromCart(productName, quantity, price) {
 }
 
 
+
 function updateCartTotal() {
     var cartTotalElement = document.getElementById('cart-total');
-    cartTotalElement.textContent = cartTotal.toFixed(2);
+    cartTotalElement.textContent = cartTotal;
 }
 
-
-// Функция для удаления товара из корзины
-function removeFromCart(productName, quantity) {
-    // Получаем родительский элемент списка товаров
-    let cartItems = document.getElementById('cart-items');
-    // Получаем элемент списка
-    let items = cartItems.getElementsByTagName('li');
-
-    var removedCount = 0;
-
-    // Удаляем товар совпадающий по названию 
-
-    for (var i = items.length - 1; i >= 0; i--) {
-        if (items[i].textContent === productName) {
-            cartItems.removeChild(items[i]);
-            removedCount++;
-            if (removedCount === quantity) {
-                break;
-            }
-        }
-    }
-}
-
-// Функция для обновления счетчика корзины
 function updateCartCounter() {
-    // Получаем родительский элемент списка товаров
-    let cartItems = document.getElementById('cart-items');
-    // Получаем элемент списка
-    let items = cartItems.getElementsByTagName('li');
-    // Обновляем значение счетчика корзины
+    var cartItems = document.getElementById('cart-items');
+    var items = cartItems.getElementsByTagName('li');
     cartCounter = items.length;
 
-    let cartCounterElement = document.getElementsByClassName('cart-count')[0];
-    // Обновляем отображение счетчика корзины
-    cartCounterElement.textContent = cartCounter;
+    var cartCounterElements = document.getElementsByClassName('cart-counter');
+    for (let i = 0; i < cartCounterElements.length; i++) {
+        cartCounterElements[i].textContent = cartCounter;
+    }
 }
 
-// Обработчик события при нажатии на кнопку "Очистить корзину"
-let clearCartButton = document.getElementById('clear-cart-btn');
+var clearCartButton = document.getElementById('clear-cart-btn');
 clearCartButton.addEventListener('click', function () {
-    let cartItems = document.getElementById('cart-items');
-    // Очищаем содержимое корзины
+    var cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
-    // Сбрасываем счетчик корзины
     cartCounter = 0;
-    // Обновляем отображение счетчика корзины
+    cartTotal = 0;
     updateCartCounter();
+    updateCartTotal();
 
-    // При очистке корзины, скрываем кнопку "Удалить из корзины" и отображаем кнопку "Добавить в корзину"
-    for (let i = 0; i < removeFromCartButtons.length; i++) {
-        removeFromCartButtons[i].style.display = 'none';
-        addToCartButtons[i].style.display = 'inline-block';
-    }
+
 });
