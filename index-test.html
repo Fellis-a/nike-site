@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike - главная страница</title>
+    <link rel="shortcut icon" type="image/png" href="/img/logo.svg" />
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+</head>
+
+<body>
+
+    <header>
+        <div class="header_first">
+            <a href="">Помощь</a>
+            <span>|</span>
+            <a onclick="openModal()">Войти</a>
+        </div>
+        <div class="header_second">
+            <a href="" class="header_logo">
+                <img src="/img/logo.svg" alt="лого">
+            </a>
+
+
+            <nav class="header_menu ">
+
+                <a href="" class="header_menu-item">Новинки</a>
+                <a href="" class="header_menu-item">Мужчины</a>
+                <a href="" class="header_menu-item">Женщины</a>
+                <a href="" class="header_menu-item">Дети</a>
+
+            </nav>
+
+
+            <div class="header_icons">
+                <a href=""><img src="/img/search.svg" alt="поиск"></a>
+                <a href=""><img src="/img/heart.svg" alt="избранное"></a>
+                <div class="cart">
+                    <a href=""><img src="/img/cart.svg" alt="корзина"></a>
+                    <div class="cart-count">0</div>
+                </div>
+            </div>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+
+        </div>
+
+        <div class="mobile-nav"></div>
+        <div class="header_bottom-block">
+
+        </div>
+    </header>
+
+    <main>
+        <section class="about">
+            <h1 class="about_h1">о нас</h1>
+            <p class="about_text">Добро пожаловать в Nike, где мы верим, что каждый является спортсменом. Мы стремимся
+                предоставить вам лучшую спортивную обувь, одежду и аксессуары, чтобы помочь вам показать свои лучшие
+                результаты и достичь своих целей. Наши продукты разработаны с использованием новейших технологий и
+                инновационных материалов.</p>
+            <a href="" class="about_button">Подробнее ></a>
+        </section>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/slider1.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slider2.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slider3.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slider4.png" alt=""></div>
+                <div class="swiper-slide"><img src="/img/slider5.png" alt=""></div>
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <section class="products">
+
+            <h2 class="products_h2">Популярное на этой неделе</h2>
+
+            <div class="products_items">
+                <div class="product">
+                    <img src="/img/shoes1.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="product_button add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="/img/shoes2.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Blazer Mid '77</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+
+                        <button href="" class="product_button  add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="/img/shoes3.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Air Jordan 1 Low</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="product_button  add-to-cart">В корзину</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="/img/shoes4.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="product_button  add-to-cart">В корзину</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="/img/shoes5.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Max SYSTM</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="product_button  add-to-cart">В корзину</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="/img/shoes6.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Court Legacy</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="product_button  add-to-cart">В корзину</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <div id="myModal" class="modal"> <!-- Модальное содержание -->
+            <div class="modal-content">
+                <!-- Заголовок -->
+                <div class="modal-header">
+                    <!-- Крестик для закрывания окна -->
+                    <span class="close" >&times;</span> <!-- Текст заголовка -->
+
+                </div>
+                <div class="modal-header-logo">
+                    <img src="/img/logo.svg" alt="">
+                    <div>YOUR ACCOUNT FOR
+                        EVERYTHING NIKE</div>
+                </div>
+                <!-- Модальное основное содержимое -->
+                <div class="modal-body">
+                    <form action="#" id="feedback-form">
+                        <div class="feedback-form_content">
+                            <input type="text" class="input-box" placeholder="email" id="email">
+                            <input type="password" class="input-box" placeholder="password" id="phone">
+                            <div>Входя в систему, вы соглашаетесь с <a href="">Privacy Policy</a> и <a href="">Terms of
+                                    Use</a></div>
+                            <input type="submit" class="button" value="Отправить">
+                            <div>Еще не с нами? <a href="">Зарегистрироваться</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer_content">
+            <div class="footer_menu">
+                <div class="footer_menu-column">
+                    <a href="">O NIKE</a>
+                    <a href="">Новости</a>
+                    <a href="">Карьера</a>
+                    <a href="">Инвесторы</a>
+                </div>
+
+                <div class="footer_menu-icons">
+                    <a href=""><img src="/img/twitter.svg" alt=""></a>
+                    <a href=""> <img src="/img/facebook.svg" alt=""></a>
+                    <a href=""><img src="/img/instagram.svg" alt=""></a>
+                    <a href=""><img src="/img/youtube.svg" alt=""></a>
+                </div>
+            </div>
+            <div class="footer_about">© 2023 Nike, Inc. All Rights Reserved</div>
+
+        </div>
+    </footer>
+    <!-- JavaScript -->
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 2,
+            centeredSlides: true,
+            spaceBetween: 30,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+
+       
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        const cartCount = document.querySelector('.cart-count');
+
+        let count = 0;
+
+        addToCartBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                count++;
+                cartCount.innerText = count;
+            });
+        });
+
+
+    </script>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".header_menu");
+        const bodyColor = document.querySelector(".mobile-nav");
+        const fixatedBody = document.body;
+
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+            bodyColor.classList.toggle('mobile-nav-colored');
+            fixatedBody.classList.toggle('body-fixated');
+        })
+
+        document.querySelectorAll(".header_menu-item").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+            fixatedBody.classList.remove('body-fixated');
+            bodyColor.classList.remove('mobile-nav-colored');
+        }))
+
+
+
+    </script>
+   
+</body>
+
+</html>
