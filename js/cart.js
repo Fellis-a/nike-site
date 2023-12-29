@@ -1,145 +1,153 @@
-
-// JavaScript-код для управления корзиной товаров
-
-// Получаем все кнопки "Добавить в корзину"
-let addToCartButtons = document.getElementsByClassName('add-to-cart');
-// Получаем все кнопки "Удалить из корзины"
-let removeFromCartButtons = document.getElementsByClassName('remove-from-cart-btn');
-// Инициализируем счетчик корзины
-let cartCounter = 0;
-
+var addToCartButtons = document.getElementsByClassName('add-to-cart');
+var removeFromCartButtons = document.getElementsByClassName('remove-from-cart-btn');
+var cartCounter = 0;
 var cartTotal = 0;
+let quantity = 1;
 
-// Добавляем обработчик события при нажатии на кнопку "Добавить в корзину"
-for (let i = 0; i < addToCartButtons.length; i++) {
+
+
+//навешиваем обработчики событий на кнопки добавления товаров в корзину
+for (var i = 0; i < addToCartButtons.length; i++) {
     addToCartButtons[i].addEventListener('click', function () {
-        // Получаем родительский элемент (товар)
-        let product = this.parentNode;
-        // Получаем название товара
-        let productName = product.getElementsByClassName('product_name')[0].textContent;
-        var quantityInput = product.getElementsByClassName('quantity-input')[0];
-        var quantity = parseInt(quantityInput.value, 10);
+        var product = this.parentNode;
+        var productName = product.getElementsByClassName('product_name')[0].textContent;
+
         var priceElement = product.getElementsByClassName('product_price')[0];
         var price = parseFloat(priceElement.textContent);
 
-        for (var j = 0; j < quantity; j++) {
-            addToCart(productName, price);
-        }
+
+        addToCart(productName, price);
         updateCartCounter();
+
         updateCartTotal();
 
-        // Скрываем кнопку "Добавить в корзину" и отображаем кнопку "Удалить из корзины"
         this.style.display = 'none';
         product.getElementsByClassName('remove-from-cart-btn')[0].style.display = 'inline-block';
     });
 }
 
-// Добавляем обработчик события при нажатии на кнопку "Удалить из корзины"
-for (let i = 0; i < removeFromCartButtons.length; i++) {
+//навешиваем обработчики событий на кнопки удаления товаров в корзину
+for (var i = 0; i < removeFromCartButtons.length; i++) {
     removeFromCartButtons[i].addEventListener('click', function () {
-        // Получаем родительский элемент (товар)
-        let product = this.parentNode;
-        // Получаем название товара
-        let productName = product.getElementsByClassName('product_name')[0].textContent;
-        var quantityInput = product.getElementsByClassName('quantity-input')[0];
-        var quantity = parseInt(quantityInput.value, 10);
+        var product = this.parentNode;
+        var productName = product.getElementsByClassName('product_name')[0].textContent;
+        var priceElement = product.getElementsByClassName('product_price')[0];
+        var price = parseFloat(priceElement.textContent);
 
-        removeFromCart(productName, quantity);
-        // Обновляем счетчик корзины
+        removeFromCart(productName, price);
         updateCartCounter();
+        updateCartTotal();
 
-        // Скрываем кнопку "Удалить из корзины" и отображаем кнопку "Добавить в корзину"
         this.style.display = 'none';
         product.getElementsByClassName('add-to-cart')[0].style.display = 'inline-block';
     });
 }
 
-
-
+// Функция добавления товаров в корзину 
 function addToCart(productName, price) {
     var cartItems = document.getElementById('cart-items');
     var listItem = document.createElement('li');
-    listItem.textContent = productName;
+    var itemContainer = document.createElement('div');
+    itemContainer.innerHTML = `${productName} x ${quantity} - ${price * quantity} руб. <span class="remove-from-cart-btn close-danger">&times;</span>`;
+    listItem.appendChild(itemContainer);
+
+    // Add the item to the cart
     cartItems.appendChild(listItem);
 
+    // Обработчик событий для кнопки удаления товаров в корзие (рядом с товарами)
+    var deleteButton = listItem.querySelector('.remove-from-cart-btn');
+    deleteButton.addEventListener('click', function () {
+
+        if (confirm('Удалить?')) {
+            removeFromCart(productName, price);
+
+            updateCartCounter();
+            updateCartTotal();
+
+            updateProductCardButtons(productName, true);
+        }
+
+
+    });
+
+    // обновление цены
     cartTotal += price;
 }
-// Функция для добавления товара в корзину
-function removeFromCart(productName, quantity, price) {
+
+
+
+//удаление товаров в корзине
+function removeFromCart(productName, price) {
     var cartItems = document.getElementById('cart-items');
     var items = cartItems.getElementsByTagName('li');
-    var removedCount = 0;
 
     for (var i = items.length - 1; i >= 0; i--) {
-        if (items[i].textContent === productName) {
+        var itemText = items[i].textContent;
+        if (itemText.includes(productName)) {
             cartItems.removeChild(items[i]);
-            removedCount++;
-            if (removedCount === quantity) {
-                break;
-            }
+
+            break; // Останавливается после удаления первого совпалающего элемента
         }
     }
 
-    cartTotal -= price * quantity;
+    cartTotal -= price;
 }
 
 
-function updateCartTotal() {
-    var cartTotalElement = document.getElementById('cart-total');
-    cartTotalElement.textContent = cartTotal.toFixed(2);
-}
-
-
-// Функция для удаления товара из корзины
-function removeFromCart(productName, quantity) {
-    // Получаем родительский элемент списка товаров
-    let cartItems = document.getElementById('cart-items');
-    // Получаем элемент списка
-    let items = cartItems.getElementsByTagName('li');
-
-    var removedCount = 0;
-
-    // Удаляем товар совпадающий по названию 
-
-    for (var i = items.length - 1; i >= 0; i--) {
-        if (items[i].textContent === productName) {
-            cartItems.removeChild(items[i]);
-            removedCount++;
-            if (removedCount === quantity) {
-                break;
-            }
-        }
-    }
-}
-
-// Функция для обновления счетчика корзины
+//обновление значения счетчика товаров на сайте 
 function updateCartCounter() {
-    // Получаем родительский элемент списка товаров
-    let cartItems = document.getElementById('cart-items');
-    // Получаем элемент списка
-    let items = cartItems.getElementsByTagName('li');
-    // Обновляем значение счетчика корзины
+    var cartItems = document.getElementById('cart-items');
+    var items = cartItems.getElementsByTagName('li');
     cartCounter = items.length;
 
-    let cartCounterElement = document.getElementsByClassName('cart-count')[0];
-    // Обновляем отображение счетчика корзины
+    var cartCounterElement = document.getElementById('cart-counter');
     cartCounterElement.textContent = cartCounter;
 }
 
-// Обработчик события при нажатии на кнопку "Очистить корзину"
-let clearCartButton = document.getElementById('clear-cart-btn');
-clearCartButton.addEventListener('click', function () {
-    let cartItems = document.getElementById('cart-items');
-    // Очищаем содержимое корзины
-    cartItems.innerHTML = '';
-    // Сбрасываем счетчик корзины
-    cartCounter = 0;
-    // Обновляем отображение счетчика корзины
-    updateCartCounter();
+//обработчик для кнопки очистки корзины
 
-    // При очистке корзины, скрываем кнопку "Удалить из корзины" и отображаем кнопку "Добавить в корзину"
-    for (let i = 0; i < removeFromCartButtons.length; i++) {
+var clearCartButton = document.getElementById('clear-cart-btn');
+clearCartButton.addEventListener('click', function () {
+    var cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    cartCounter = 0;
+    cartTotal = 0;
+    updateCartCounter();
+    updateCartTotal();
+
+    //смена кнопок "удалить" на "в корзину" в карточках товаров при очистке корзины
+    for (var i = 0; i < removeFromCartButtons.length; i++) {
         removeFromCartButtons[i].style.display = 'none';
         addToCartButtons[i].style.display = 'inline-block';
     }
 });
+
+//Функция для показа итоговой суммы за товары в корзине
+function updateCartTotal() {
+    var cartTotalElement = document.getElementById('cart-total');
+    cartTotalElement.textContent = cartTotal;
+}
+
+//Функция для смены кнопок на основной странице при удалении товаров из корзины
+
+function updateProductCardButtons(productName, showAddButton) {
+    var productCards = document.getElementsByClassName('product');
+    for (var i = 0; i < productCards.length; i++) {
+        var cardProductName = productCards[i].getElementsByClassName('product_name')[0].textContent;
+
+        if (cardProductName === productName) {
+            var addToCartButton = productCards[i].getElementsByClassName('add-to-cart')[0];
+            var removeFromCartButton = productCards[i].getElementsByClassName('remove-from-cart-btn')[0];
+
+            if (showAddButton) {
+                addToCartButton.style.display = 'inline-block';
+                removeFromCartButton.style.display = 'none';
+            } else {
+                addToCartButton.style.display = 'none';
+                removeFromCartButton.style.display = 'inline-block';
+            }
+
+            break;
+        }
+    }
+}

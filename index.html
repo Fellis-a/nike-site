@@ -41,10 +41,10 @@
 
             <nav class="header_menu">
                 <a href="#part1" class="header_menu-item" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    data-bs-title="Категория: товары">Новинки</a>
+                    data-bs-title="Категория: товары">Популярное</a>
                 <a href="#part2" class="header_menu-item">Мужчины</a>
-                <a href="#" class="header_menu-item">Женщины</a>
-                <a href="#" class="header_menu-item">Дети</a>
+                <a href="#part3" class="header_menu-item">Женщины</a>
+                <a href="#part4" class="header_menu-item">Дети</a>
             </nav>
 
 
@@ -61,7 +61,7 @@
                 <div class="cart">
                     <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
                         aria-controls="offcanvasScrolling"><img src="/img/cart.svg" alt="корзина"></a>
-                    <div class="cart-count">0</div>
+                    <div class="cart-count" id="cart-counter">0</div>
                 </div>
             </div>
 
@@ -77,13 +77,18 @@
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
             id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Корзина</h5>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul id="cart-items"></ul>
-                <button id="clear-cart-btn">очистить корзину</button>
-                <p>Пока ваша корзина пуста.</p>
+                <!-- Updated HTML for the cart items -->
+                <div id="cart">
+                    <h3>Корзина</h3>
+                    <ul id="cart-items"></ul>
+                    <p>Общая стоимость: <span id="cart-total">0</span> руб.</p>
+                    <button id="clear-cart-btn" class="button">Очистить корзину</button>
+                </div>
+
             </div>
         </div>
     </header>
@@ -122,10 +127,10 @@
                     <div class="product_description">
                         <div>
                             <div class="product_name">Nike Air Force 1 '07</div>
-                            <div class="product_price">15 000 &#8381;</div>
+                            <div class="product_price">15000 &#8381;</div>
                         </div>
-                        <button href="" class="button add-to-cart">В корзину</button>
-                        <button class="remove-from-cart-btn button"></button>
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
 
@@ -135,10 +140,11 @@
                     <div class="product_description">
                         <div>
                             <div class="product_name">Nike Blazer Mid '77</div>
-                            <div class="product_price">15 000 &#8381;</div>
+                            <div class="product_price">15000 &#8381;</div>
                         </div>
 
-                        <button href="" class="button  add-to-cart">В корзину</button>
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
                 <div class="product">
@@ -146,9 +152,10 @@
                     <div class="product_description">
                         <div>
                             <div class="product_name">Air Jordan 1 Low</div>
-                            <div class="product_price">15 000 &#8381;</div>
+                            <div class="product_price">15000 &#8381;</div>
                         </div>
-                        <button href="" class="button  add-to-cart">В корзину</a>
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
                 <div class="product">
@@ -156,9 +163,10 @@
                     <div class="product_description">
                         <div>
                             <div class="product_name">Nike Air Force 1 '07</div>
-                            <div class="product_price">15 000 &#8381;</div>
+                            <div class="product_price">15000 &#8381;</div>
                         </div>
-                        <button href="" class="button  add-to-cart">В корзину</a>
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
                 <div class="product">
@@ -166,9 +174,11 @@
                     <div class="product_description">
                         <div>
                             <div class="product_name">Nike Air Max SYSTM</div>
-                            <div class="product_price">15 000 &#8381;</div>
+                            <div class="product_price">15000 &#8381;</div>
                         </div>
-                        <button href="" class="button  add-to-cart">В корзину</a>
+
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
                 <div class="product">
@@ -178,7 +188,8 @@
                             <div class="product_name">Nike Court Legacy</div>
                             <div class="product_price">15 000 &#8381;</div>
                         </div>
-                        <button href="" class="button  add-to-cart">В корзину</a>
+                        <button class="button add-to-cart">В корзину</button>
+                        <button class="remove-from-cart-btn button" style="display: none;">Удалить из корзины</button>
                     </div>
                 </div>
             </div>
@@ -208,10 +219,43 @@
 
 
 
-        <!-- <section class="products" id="part2">
-            <h2 class="products_h2">Мужчины</h2>
+        <section class="products" id="part3">
 
-        </section> -->
+            <h2 class="products_h2">Женщины</h2>
+
+            <div class="products_items">
+                <div class="product">
+                    <img src="/img/shoes1.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="button add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="products" id="part4">
+
+            <h2 class="products_h2">Дети</h2>
+
+            <div class="products_items">
+                <div class="product">
+                    <img src="/img/shoes1.png" alt="">
+                    <div class="product_description">
+                        <div>
+                            <div class="product_name">Nike Air Force 1 '07</div>
+                            <div class="product_price">15 000 &#8381;</div>
+                        </div>
+                        <button href="" class="button add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <div class="ad">
 

@@ -290,6 +290,13 @@ body {
     cursor: pointer;
 }
 
+.close-danger {
+    color: #ff0202;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 /* заголовок модального окна */
 .login-modal-header {
     margin: 0 auto;
